@@ -1,0 +1,75 @@
+CREATE TABLE `t_invest` (
+
+  invregnum   varchar(32) NOT NULL,
+  invname    varchar(32) NOT NULL,
+  cty        char(3) NOT NULL COMMENT '000 - 中国， 001-美国, 002-英国 , 003-日本',
+  orgcode        varchar(32) DEFAULT NULL,
+  contactman varchar(32) DEFAULT NULL,
+  contacttel varchar(32) DEFAULT NULL,
+  email          varchar(32) DEFAULT NULL,
+  remark         varchar(128) DEFAULT NULL,
+  usercode       varchar(32) NOT NULL,
+  regdate       char(10) NOT NULL,
+
+  PRIMARY KEY (`invregnum`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+if ($invname.val().trim() == ""){
+    $invnameFont.text("投资人名称不能为空");
+}else{
+    var invname = $invname.val().trim();
+     $.post(function () {
+         "/egov_002/inv/query",
+         {"invname":invname},
+         function (data){
+            if (data != ""){
+            $fontEle.text(ele.label+"已存在");
+            }
+         }
+     });
+}
+
+
+$("#img1").attr("src","../images/prevPage"+isNotFirstPage?"":"Disabled"+".gif");
+$("#img1")[0].style=isNotFirstPage?"cursor:pointer":"";
+isNotFirstPage?$("#img1").click(pageQuery(1)):"";
+
+$("#img2")[0].src="../images/prevPage"+isNotFirstPage?"":"Disabled"+".gif";
+$("#img2")[0].style=isNotFirstPage?"cursor:pointer":"";
+isNotFirstPage?$("#img2").click(pageQuery(pageno-1)):"";
+
+$("#img3").attr("src","../images/nextPage"+isNotLastPage?"":"Disabled"+".gif");
+$("#img3")[0].style=isNotLastPage?"cursor:pointer":"";
+isNotLastPage?$("#img3").click(pageQuery(pageno+1)):"";
+
+$("#img4")[0].src="../images/lastPage"+isNotLastPage?"":"Disabled"+".gif";
+$("#img4")[0].style=isNotLastPage?"cursor:pointer":"";
+isNotLastPage?$("#img4").click(pageQuery(totalpagee)):"";
+
+<td width="30" height="22" valign="middle"><div align="right"><img id="img1" src="../images/firstPageDisabled.gif" /></div></td>
+<td width="30" height="22" valign="middle"><div align="right"><img id="img2" src="../images/prevPageDisabled.gif"  /></div></td>
+<td width="30" height="22" valign="middle"><div align="right"><img id="img3" src="../images/nextPageDisabled.gif" /></div></td>
+<td width="30" height="22" valign="middle"><div align="right"><img id="img4" src="../images/lastPageDisabled.gif" /></div></td>
+
+
+  private String orgcode
+  private String regno
+  private String cnname
+  private String enname
+  private String contactman
+  private String contacttel
+  private String regcap
+  private String outregcap
+  private String regcry
+  private String usercode
+  private String regdate
+
+<tr>
+<td width="20%" bgcolor="#FFFFFF" height="20" class="STYLE1"><div align="center" style="padding:5px" class="STYLE2 STYLE1">XXXXXX</div></td>
+<td width="20%" bgcolor="#FFFFFF" class="STYLE1"><div align="center" style="padding:2px" class="STYLE2">美国</div></td>
+<td width="20%" bgcolor="#FFFFFF" class="STYLE1"><div align="center" style="padding:5px" class="STYLE2 STYLE1"><input type="text" name="orgname" style="width:90px; height:20px; border:solid 1px #035551; color:#000000"><font color="red">*</font></div></td>
+<td width="20%" bgcolor="#FFFFFF" class="STYLE1"><div align="center" style="padding:2px" class="STYLE2"><input type="text" name="orgname" style="width:90px; height:20px; border:solid 1px #035551; color:#000000"><font color="red">*</font></div></td>
+<td width="20%" bgcolor="#FFFFFF" class="STYLE1"><div align="center" style="padding:2px" class="STYLE2"><img src="../images/delete.jpg"/></div></td>
+</tr>

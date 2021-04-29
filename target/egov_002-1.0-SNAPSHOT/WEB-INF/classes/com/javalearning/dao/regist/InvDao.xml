@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javalearning.dao.regist.InvDao">
+    <insert id="addInv">
+        insert into t_invest(invname,cty,orgcode,contactman,contacttel,email,remark,usercode,regdate) values
+        (#{invname},#{cty},#{orgcode},#{contactman},#{contacttel},#{email},#{remark},#{usercode},#{regdate})
+    </insert>
+
+    <select id="queryInvByInvname" resultType="com.javalearning.entity.regist.Inv">
+        select * from t_invest where invname=#{in}
+    </select>
+
+    <select id="queryByInvregnum" resultType="com.javalearning.entity.regist.Inv">
+        select * from t_invest where invregnum=#{ig}
+    </select>
+
+    <select id="pagequery" resultType="com.javalearning.entity.regist.Inv">
+        select * from t_invest
+        <where>
+            <if test="irn_p != null and irn_p != ''">
+                invregnum=#{irn_p}
+            </if>
+            <if test="in_p != null and in_p != ''">
+                and invname like "%" #{in_p} "%"
+            </if>
+            <if test="sd_p != null and sd_p != ''">
+                and regdate >= #{sd_p}
+            </if>
+            <if test="ed_p != null and ed_p != '' and sd_p &lt;= ed_p">
+                and regdate &lt;= #{ed_p}
+            </if>
+        </where>
+    </select>
+</mapper>

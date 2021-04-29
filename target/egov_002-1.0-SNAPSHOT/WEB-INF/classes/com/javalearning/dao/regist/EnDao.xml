@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javalearning.dao.regist.EnDao">
+    <select id="queryByOrgcode" resultType="com.javalearning.entity.regist.En">
+        select * from t_enterprise where orgcode=#{orgcode_p}
+    </select>
+
+    <select id="pageQuery" resultType="com.javalearning.entity.regist.En">
+        select * from t_enterprise
+        <where>
+            <if test="oc != null and oc != ''">
+                orgcode=#{oc}
+            </if>
+            <if test="cn != null and cn != ''">
+                and cnname like "%" #{cn} "%"
+            </if>
+            <if test="sd != null and sd != ''">
+                and regdate>=#{sd}
+            </if>
+            <if test="ed != null and ed != '' and ed>=sd">
+                and regdate&lt;=#{ed}
+            </if>
+        </where>
+    </select>
+
+    <insert id="insertEn">
+        insert into t_enterprise values (#{orgcode},#{regno},#{cnname},#{enname},#{contactman},#{contacttel},#{regcap},#{outregcap},#{regcry},#{usercode},#{regdate})
+    </insert>
+
+</mapper>

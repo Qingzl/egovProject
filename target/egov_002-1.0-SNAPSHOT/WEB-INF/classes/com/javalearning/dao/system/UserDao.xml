@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javalearning.dao.system.UserDao">
+    <insert id="addUser">
+        insert into t_user values(#{usercode},#{username},#{orgtype},#{userpswd},#{regdate})
+    </insert>
+
+    <select id="queryAll" resultType="com.javalearning.entity.system.User">
+        select usercode,username,orgtype from t_user order by usercode asc
+    </select>
+
+    <select id="queryUserAmount" resultType="java.lang.Integer">
+        select count(*) from t_user
+    </select>
+
+    <select id="queryUserByUsercode" resultType="com.javalearning.entity.system.User">
+        select usercode,username,userpswd,orgtype from t_user where usercode = #{usercodeParam}
+    </select>
+
+    <select id="queryUserByUsercodeAndUserpswd" resultType="com.javalearning.entity.system.User">
+        select usercode,username,userpswd,orgtype from t_user where orgtype=#{ot} and userpswd=#{up} and usercode=#{uc}
+    </select>
+
+    <update id="updateUser">
+        update t_user set username=#{username},userpswd=#{userpswd},orgtype=#{orgtype} where usercode=#{usercode}
+    </update>
+
+    <delete id="deleteUser">
+        delete from t_user where usercode in (
+        <foreach collection="array" item="usercodeItem" separator=",">
+            #{usercodeItem}
+        </foreach>
+        )
+    </delete>
+</mapper>

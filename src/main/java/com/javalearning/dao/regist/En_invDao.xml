@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javalearning.dao.regist.En_invDao">
+    <insert id="insertEn_invs">
+        insert into t_en_inv values
+        <foreach collection="list" separator="," item="en_inv">
+            (#{en_inv.orgcode},#{en_inv.invregnum},#{en_inv.regcap},#{en_inv.scale})
+        </foreach>
+    </insert>
+
+</mapper>
